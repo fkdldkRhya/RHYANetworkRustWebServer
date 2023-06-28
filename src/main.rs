@@ -11,22 +11,22 @@ use AthenaEngine::server::request_parser::request_parser::{HttpVersion, Method};
 use AthenaEngine::server::request_parser::request_parser::Method::POST;
 use AthenaEngine::server::response_parser::response_parser::{default_response_writer, IsResponseDataCreateSuccess, Response, ResponseBody, ResponseCookies};
 
-static mut HTTP_URL_LOADING_REDIRECT_API: &str = "/api/auth.v1/login";
+static mut HTTP_URL_REDIRECT_WARNING_API: &str = "/api/redirect_warning";
 
 fn main() {
     // All pages hashmap
     let mut all_page_list: HashMap<String, PageInfo> = HashMap::new();
 
 
-    // RHYA.Network Auth V1 Login API
+    // Loading redirect API
     // ================================
-    let rhya_network_auth_v1_login_api : PageInfo = PageInfo {
-        file_path: "rhya_network_auth_v1_login_api.html".to_string(), // HTML file path
+    let util_redirect_warning_api : PageInfo = PageInfo {
+        file_path: "/resources/pages/api/util_redirect_warning.html".to_string(), // HTML file path
         is_access: true // File accessibility
     };
-    // RHYA.Network Auth V1 Login API
+    // ================================
     unsafe {
-        all_page_list.insert(String::from(HTTP_URL_RHYA_NETWORK_AUTH_V1_LOGIN_API), rhya_network_auth_v1_login_api);
+        all_page_list.insert(String::from(HTTP_URL_REDIRECT_WARNING_API), util_redirect_warning_api);
     }
     // ================================
 
@@ -53,19 +53,6 @@ fn main() {
             match &request.target {
                 None => {}
                 Some(target) => {
-                    //
-                    // RHYA.Network auth.v1 login API
-                    //
-                    if target.to_lowercase() == String::from(HTTP_URL_RHYA_NETWORK_AUTH_V1_LOGIN_API) {
-                        match &request.http_header {
-                            None => {}
-                            Some(http_header) => {
-                                println!("{:?}", http_header);
-                                let header_name_username = "username";
-                                let header_name_password = "password";
-                            }
-                        }
-                    }
                 }
             }
 
